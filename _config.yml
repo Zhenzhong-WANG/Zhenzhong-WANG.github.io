@@ -71,7 +71,7 @@ ga_domain: huangxuan.me
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "sidebar-about-description"
-sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+# sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -88,9 +88,9 @@ service-worker: true
 
 
 # Friends
-friends: [
-    {
-        title: "wzz",
-        href: "http://wonggigi.com"
-    }
-]
+# friends: [
+#     {
+#         title: "wzz",
+#         href: "http://wonggigi.com"
+#     }
+# ]
