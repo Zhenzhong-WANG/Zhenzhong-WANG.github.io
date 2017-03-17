@@ -12,6 +12,7 @@ tags:
 
 Fibonacci数列递归公式：
 
+![img](/img/20160402/0.jpg)
 
 ### 求Fibonacci数列第n项
 

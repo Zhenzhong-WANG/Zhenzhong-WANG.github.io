@@ -1,0 +1,90 @@
+---
+layout:     post
+title:      "高性能滚动 scroll"
+subtitle:   "学习笔记"
+date:       2017-03-16
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - JavaScript
+    - 前端开发
+---
+
+
+#### （1）为什么需要高性能的滚动的scroll？
+
+如果在scroll事件的回调函数中包含有复杂的操作，如操作DOM，将导致页面重新渲染，有可能触发浏览器的回流和重绘
+
+流畅的效果要大于60fps，每帧要在16ms内绘制完成，而渲染每帧会进行如下步骤
+
+JavaScript运行-->计算样式更新渲染树-->布局-->绘制-->图层合并
+
+所以我们不应该在scroll的事件回调内操作DOM，布局和绘制会消耗很多的时间；
+
+另外也不应该在回调内进行复杂的JavaScript计算；scroll触发回调的频率非常高，若计算复杂很容易未执行完就开始下一帧的渲染，造成丢帧，用户体验不流畅；
+
+
+#### （2）防抖（Debouncing）、节流（Throttling）
+
+把scroll事件回调中的计算进行防抖和节流，防抖就是让某个函数在上一次执行后，满足等待某个时间内不再触发此函数后再执行，而在这个等待时间内再次触发此函数，等待时间会重新计算。比如在检测用户滚动到底部，再继续加载数据显示到页面上，不必每次回调都判断srcoll位置，只要在最后一次滚动后再判断，这时候就要用到防抖。
+
+防抖函数原理及使用：
+
+```js
+function debounce(func, wait, immediate) {
+    // 定时器变量
+    var timeout;
+    return function() {
+        // 每次触发 scroll handler 时先清除定时器
+        clearTimeout(timeout);
+        timeout = setTimeout(func, wait);
+    };
+};
+
+function realFunc(){
+    console.log("Success");
+}
+window.addEventListener('scroll',debounce(realFunc,500));
+```
+
+主要原理：每触发一次回调函数都会清除定时器，再重新设置定时器。这样只有在一定时间内没触发scroll事件，才会执行定时器的回调函数。
+
+节流函数就是规定一个时间间隔再去执行某函数，避免函数的过多执行
+
+节流函数原理及使用：
+
+```js
+function throttle(func, wait, mustRun) {
+    var timeout,
+        startTime = new Date();
+
+    return function() {
+        var context = this,
+            args = arguments,
+            curTime = new Date();
+        clearTimeout(timeout);
+        // 如果达到了规定的触发时间间隔，触发 handler
+        if(curTime - startTime >= mustRun){
+            func.apply(context,args);
+            startTime = curTime;
+        // 没达到触发间隔，重新设定定时器
+        }else{
+            timeout = setTimeout(func, wait);
+        }
+    };
+};
+
+
+function realFunc(){
+    console.log("Success");
+}
+window.addEventListener('scroll',throttle(realFunc,500,1000));
+```
+
+主要原理：第一次触发时设置开始时间，每次触发时设置当前时间，大于时间间隔则执行并更新开始时间
+
+
+#### （3）requestAnimationFrame
+
+rAF 被调用的频率是每秒 60 次，也就是 16.7ms一帧 。（当执行复杂操作时，当它发现无法维持 60fps 的频率时，它会把频率降低到 30fps 来保持帧数的稳定。）
