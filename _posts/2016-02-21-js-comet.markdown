@@ -16,7 +16,6 @@ tags:
 很多实时服务都需要即使的将服务器端的新数据传递给客户端，实现服务器推送Comet有多种方法，可以基于Ajax长轮询，基于Flash，基于Iframe,或者基于HTTP长连接，本文主要讨论基于HTTP长连接的Comet推送服务。
 
 
-
 ## 一.基于HTTP长连接Comet的原理
 
 
@@ -26,7 +25,7 @@ tags:
 
 只需要在新客户端连接时生成一个ID标识该用户，并将该ID发送到后端记录下来。
 
-前端核心代码
+前端核心代码:
 
 ```js
 var wComet=(function () {
@@ -80,7 +79,7 @@ var wComet=(function () {
     })();
 ```
 
-服务器端代码
+服务器端代码:
 
 ```js
 var http = require('http');

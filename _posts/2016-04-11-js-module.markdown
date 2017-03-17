@@ -1,0 +1,159 @@
+---
+layout:     post
+title:      "JavaScript模块化"
+subtitle:   "学习笔记"
+date:       2016-04-11
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 前端开发
+    - JavaScript
+---
+
+模块是一个提供接口，隐藏其内部状态和实现的函数或对象，通过模块我们可以减少全局变量的使用。模块化可以实现代码的重用。 在JavaScript中，有几种实现模块的方法，包括  
+
+* 对象字面量方法
+* Module 模式
+* AMD模块
+* CommonJS模块
+* CMD模块
+
+
+目前，JavaScript模块规范有：CommonJS、AMD和CMD。CommonJS 是服务器端模块的规范，Node.js采用了这个规范。 AMD, CMD是用在浏览器端的规 范，Requirejs采用AMD规范，Seajs采用CMD规范，后续再详细介绍这几种规范。
+
+### 1、对象字面量方法：
+
+最简单的创建一个模块的方法就是通过对象字面量方法，这个对象就是一个模块，这个对象是花括号内的无序键值对，如:
+
+```js
+var myModule = {
+        name: "wzz",
+        method1: function() {},
+        method2: function() {}
+    } //创建一个myModule模块 myModule.method1(); //调用模块中的方法
+```
+### 2、Module模式：
+
+Module模式通过闭包和函数来构造模块，来封装内部的状态，并暴露出接口供外部使用,该模式返回一个对象，类似于一个立即调用的函数表达式。 JavaScript中没有访问修饰符，随意没有真正意义上的私有，他只是利用函数作用域和闭包可以访问到私有变量和内部函数，例：
+
+```js
+ var testModule = (function() {
+   var counter = 0; //私用变量
+   var privateMethod = function(bar) { //私用函数
+       bar++;
+   }
+   return { //返回了一个对象，包含了两个闭包函数，供外部使用
+       publicvar: "foo", //公有变量
+       increment: function() { //调用私有变量
+           return ++counter;
+       }
+       reset: function(bar) {
+           privateMethod(bar); //调用私有函数
+       }
+   }
+ })();
+ testModule.increment(); //调用模块接口
+ ```
+
+如果模块还需要依赖其它的模块，则需要引入，通过这个立即调用的函数表达式来传递其他模块变量名，例：
+
+```js
+var myModule = (function(jQ, _, tm) {
+    function privateMethod1() {
+        jQ(".container").html("test");
+        tm.increment();
+    }
+
+    function privateMethod2() {
+        var min = _.min([100, 200]));
+}
+return {
+    publicMethod: function() {
+        privateMethod1();
+    }
+};
+})(jQuery, _, testModule);
+myModule.publicMethod();
+```
+
+### 3、CommonJS模块
+
+CommonJS 是服务器端模块的规范，Node.js采用了这个规范,由于node是服务器端，加载模块时从磁盘中加载，速度较快，所以CommonJS是同步加载，加载方法很简单，例
+
+```js
+// mymodule.js 模块
+function myModule(){
+    this.foo = function() {}
+    this.bar = function() {}
+}
+var myModule = new myModule();
+exports.myModule = myModule; //定义模块接口
+
+//另一个文件中加载mymoudle模块
+var test = require('./mymodule').myModule;
+test.bar();
+```
+
+###　4、AMD模块和CMD模块
+
+CommonJS模块方式比较容易，但是不能直接用在浏览器端，因为浏览器端环境受网络影响，同步方式会导致网页假死。AMD和CMD都是异步方式加载模 块，不阻碍浏览器其他工作的进行，网页不会假死。区别是AMD和CMD写法略有不同，另外CMD利用正则表达式实现惰性加载，就近依赖的原则，有需要 时才加载，而AMD依赖前置。require.js是AMD规范，SeaJS是CMD规范。两种方式可按实际需要选择。 传统的浏览器端的js加载：
+
+```js
+<script type="text/javascript" src="Jquery.js"></script>
+<script type="text/javascript" src="module.js"></script>
+<script type="text/javascript" src="main.js"></script>
+```
+
+这样的方法依次加载这些js文件，加载的时候，浏览器会停止网页渲染，导致假死。这里main.js依赖module.js，module.js依赖jquery.js，需要 严格的加载顺序，当依赖关系复杂难以书写。AMD和CMD的出现解决了这两个问题。 例子如下：
+
+main.js依赖stocklib.js，stocklib.js依赖underscore.js。
+选择了require.js管理模块间的依赖和 加载。
+
+```js
+//stocklib.js
+define(['underscore'], function(_) { //加载依赖underscore.js    
+    var isStock = function(arr) {
+        if (arr.length < 3)
+            return false;
+        return _.every(arr, function(x) {
+            return !isNaN(x);
+        })
+    }
+    var subArray = function(arr1, arr2) {
+        var length = arr1.length > arr2.length ? arr2.length : arr1.length;
+        var res = [];
+        for (var i = 0; i < length; i++) {
+            res.push(arr1[i] - arr2[i]);
+        }
+        return res;
+    }　
+    return {　
+        isStock: isStock,
+        subArray: subArray　　　　 //返回接口
+    };
+})
+ ```
+
+ ```js
+//main.js
+//程序入口
+require(['stocklib'], function(stocklib) { //加载stocklib.js
+    var isStock = stocklib.isStock;
+    var subArray = stocklib.subArray; //do something....
+});
+```
+
+另外require.js加载的模块，必须是按照AMD规范、用define()函数定义的模块。一些函数库如underscore，没有按照AMD规范编写，需要用到垫片技术再加载。
+　　
+```js
+require.config({　　　　
+    shim: {　　　　　　
+        'underscore': {　　　　　　　　
+           exports: '_'　　　　　　
+         }
+    }　　
+});
+```
+
+参考资料：<<JavaScript设计模式>>

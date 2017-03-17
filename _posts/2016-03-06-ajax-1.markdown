@@ -1,0 +1,82 @@
+---
+layout:     post
+title:      "客户端与服务器通信Ajax"
+subtitle:   "学习笔记"
+date:       2016-03-06
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 前端开发
+    - JavaScript
+    - HTTP
+---
+
+Ajax是Asynchronous JavaScript and XML的简写，使用脚本技术来发送请求，在无刷新的情况下实现客户端与服务器通信，以原生JavaScript实现Ajax为例：
+
+```js
+var xmlhttprequest = new XMLHttpRequest();
+```
+
+首先创建一个`XMLHtttpRequest`对象，这个对象封装了操作HTTP的方法
+
+```js
+if (window.XMLHttpRequest) {
+    var xmlhttprequest = new XMLHttpRequest();
+} else if (window.ActiveXObject) {
+    try {
+        var xmlhttprequest = new ActiveXObject("Msxm12.XMLHTTP");
+    } catch (e) {
+        try {
+            var xmlhttprequest = new ActiveXObject("Microsoft.XMLHTTP");
+         } catch (e) {
+            alert("not support");
+        }
+    }
+};
+```
+
+ 一些古老版本的IE中，使用`ActiveXObject`来创建。
+
+接下来调用open方法，open方法，open第一个参数指定请求的方法，包括`POST`，`GET`，`PUT`，`DELETE`等，第二个参数URL指定要请求的URL，第三个参数控制
+
+`XMLHttpRequest`的异步响应还是同步响应，如果填写false是同步响应，将会阻塞后续任务进行。
+
+```js
+xmlhttprequest.open("POST", addr, true);
+```
+接下来设置请求头。可设置请求的MIME类型，比如XML或JSON
+
+```js
+xmlhttprequest.setRequestHeader("Content-Type", "application/json");
+
+```
+
+接下来设置回调函数，`onreadstatechange`监控XMLHttpRequest的`readState`值的改变
+
+ready为0时尚未开启open，为1时已调用open，为2时表明接收到了服务器传回的头消息，为3是接收到响应主体，为4表示响应完成。
+
+```js
+xmlhttprequest.onreadystatechange = response;
+```
+
+最后异步发送请求，send中可选参数来发送请求主体.
+
+```js
+xmlhttprequest.send();
+```
+
+在回调函数中，检测readyState值的变化，当接收完成并且HTTP响应正确时，再开始处理数据
+
+如果响应收到的数据是一个Json对象，经常需要`eval`函数来解析这个对象，或者采用`JSON.parse()``
+
+```js
+function response() {
+    if (xmlhttprequest.readyState == 4) {
+        if (xmlhttprequest.status == 200) {
+            var jsonObj = xmlhttprequest.responseText;
+            var obj = eval("(" + jsonObj + ")");
+        }
+    }
+}
+```

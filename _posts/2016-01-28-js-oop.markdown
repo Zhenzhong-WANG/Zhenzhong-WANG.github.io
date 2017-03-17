@@ -1,0 +1,180 @@
+---
+layout:     post
+title:      "JavaScript面向对象"
+subtitle:   "学习笔记"
+date:       2016-01-28
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - JavaScript
+---
+
+## 1、null undefined
+
+null是一个特殊的对象，typeof null返回object，null表示无值； 而undefined表示根本不存在空值，typeof undefined 返回undefined
+。
+## 2、包装对象
+
+JavaScript中，在访问字符串、数字、布尔量的属性时，会被`new String(s)`、`new Boolean`等方式转换成包装对象，引用结束这个临时对象就会销 毁，如
+
+```js
+ var str="wang zhenzhong"; //创建一个字符串
+     var length=str.length; //访问字符串属性时，被包装成包装对象，但引用结束就销毁这个对象
+     str.height=172; //试图增加height属性
+     var h=str.height; //访问失败，包装的临时对象已经消失，没有成功添加属性  
+ ```
+
+## 3、原型及原型链
+
+JavaScript 是使用的基于原型的继承，不同于其他语言基于类的继承。在JavaScript中通过对象直接量创建的对象都有一个原型对象prototype，原型对象的主要作用就是用来继承。从我的JavaScript坦克大战中的tank对象开始，了解原型和原型链
+
+```js
+ var spirit = {
+      posX: 0,
+      posY: 0,
+      move: function() {}
+  }
+```
+
+JS在创建对象的时候，都有一个叫做__proto__的内置属性，用于指向创建它的函数对象的原型对象prototype, 原型对象prototype也是一个对象所以它也__proto__属性，可用Object.getPrototypeOf()来访问__proto__属性;
+
+```js  
+console.log(Object.getPrototypeOf(spirit)===Object.prototype); //true
+```
+
+可见spirit对象`__proto__`指向`Object.prototype`。 为了能创建更多的spirit对象，将spirit变成一个构造函数，并结合new运算符使用  
+
+```js
+ function Spirit(x, y) {
+     this.posX = x;
+     this.posY = y;
+     this.move = function() {
+         this.posX++;
+         this.posY++;
+     }
+   }
+   var mySpirit = new Spirit(1, 2);
+   var yourSpirit = new Spirit(9, 9);
+   console.log(Object.getPrototypeOf(mySpirit) === Object.prototype) //false
+   console.log(Object.getPrototypeOf(mySpirit) === Spirit.prototype) //ture
+   console.log(Object.getPrototypeOf(yourSpirit) === Spirit.prototype) //ture
+   console.log(Object.getPrototypeOf(Spirit.prototype) === Object.prototype) //ture
+   console.log(mySpirit.toString()); //[object Object]
+ ```
+
+`var obj=new Obj()  `的过程相当于把obj的__proto__的指向了创建它的Obj.prototype，隐式返回该对象的this，这样obj继承了Obj的属性和方法 mySpirit和yourSpirit的__proto__的指向了创建它们的Spirit.prototype，而Spirit.prototype的__proto__指向了的Object.prototype，而 mySpirit调用的toString()方法不是我们定义的，那么他来自哪里，它来自于Object.prototype中的方法。这个有__proto__串起来的直到 `Object.prototype.__proto__`为null的链就叫做原型链。
+
+当mySpirit查找toString()方法时，它会循着原型链检查每一个对象，直到找到该方法， 或抵达原型链的末端。 这就是通过原型继承的基本原理，通过__proto__属性沿着原型链查找每个一个对象，直到到达原型链末端，或者找到该方法或属性。
+
+## 4、面向对象
+
+由于每个对象当中都有一个move方法，会占用很多内存，我们可以把move方法移到Spirit.prototype中，通过原型链使多个对象能共享这个方法。 继续改造Spirit构造函数
+
+```js
+ function Spirit(x, y) {
+      this.posX = x;
+      this.posY = y;
+   }
+ Spirit.prototype.move=function(){
+     this.posX++;
+     this.posY++;
+  }
+```
+
+现在以Spirit为父类，创建两个子类TankSpirit和BulletSpirit,并拥有各自的属性和方法。
+
+```js
+function TankSpirit(params) {
+    this.speed = params.speed;
+    this.life = params.life;
+    this.direction = params.dir;
+}
+TankSpirit.prototype.emitMissile = function() {}
+
+function BulletSpirit(params) {
+    this.power = params.power;
+}
+BulletSpirit.prototype.fly = function() {}
+```
+
+要想TankSpirit和BulletSpirit作为Spirit的子类，需要将TankSpirit.prototype和BulletSpirit.prototype的`__proto__`的指向Spirit.prototype, 即Spirit.prototype作为TankSpirit.prototype和BulletSpirit.prototype的原型对象,这样TankSpirit和BulletSpirit的实例就可以通过原型链访问 到Spirit父类中的属性和方法。
+
+ ```js
+function inherit(obj) {
+    function f() {}; //定义空的构造函数
+    f.prototype = obj; //该构造函数原型指向obj
+    return new f(); //返回创建obj的继承对象
+}
+TankSpirit.prototype = inherit(Spirit.prototype);
+TankSpirit.prototype.constructor = TankSpirit;
+BulletSpirit.prototype = inherit(Spirit.prototype);
+BulletSpirit.prototype.constructor = BulletSpirit;
+ ```
+
+这样Spirit.prototype作为了TankSpirit.prototype和BulletSpirit.prototype的原型对象,TankSpirit和BulletSpirit的对象就可以通过原型链访 问到Spirit父类中的属性和方法 由于prototype中包括了一个不可枚举属性constructor，constructor属性指向了对象的构造函数，如
+
+```js
+var obj=new Tank();
+obj.constructor===Tank //ture
+F.prototype.constructor==F //ture
+```
+
+由于`f.prototype = obj`，由于obj中的constructor不是正确指向其构造函数，所以还需要显式设置构造函数
+
+```js
+TankSpirit.prototype.constructor = TankSpirit;
+BulletSpirit.prototype.constructor = BulletSpirit;
+```
+
+ECMAScript 5中定义的`Object.create(obj)`，可直接使用obj作为原型来创建一个新对象，这个对象继承obj的属性和方法，目前代码如下
+
+```js
+function Spirit(x, y) {
+    this.posX = x;
+    this.posY = y;
+}
+Spirit.prototype.move = function() {
+    this.posX++;
+    this.posY++;
+}
+
+function inherit(obj) {
+    if (Object.create) {
+        return Object.create(obj);
+    } else if (typeof obj != 'function' && typeof obj != 'object') {
+        function f() {};
+        f.prototype = obj;
+        return new f();
+    };
+}
+TankSpirit.prototype = inherit(Spirit.prototype);
+TankSpirit.prototype.constructor = TankSpirit;
+BulletSpirit.prototype = inherit(Spirit.prototype);
+BulletSpirit.prototype.constructor = BulletSpirit;
+
+function TankSpirit(params) {
+    this.speed = params.speed;
+    this.life = params.life;
+    this.direction = params.dir;
+}
+TankSpirit.prototype.emitMissile = function() {}
+
+function BulletSpirit(params) {
+    this.power = params.power;
+}
+BulletSpirit.prototype.fly = function() {}
+```
+
+目前看上去大功告成，但是还存在一个问题，TankSpirit和BulletSpirit的实例访问着同一个父类Spirit中的属性posX和posY，所以还需要为每个子 类对象重新构造父类，子类要调用父类的构造函数需要用apply函数实现this的重新绑定。
+
+```js
+function TankSpirit(params) {
+    this.speed = params.speed;
+    this.life = params.life;
+    this.direction = params.dir;
+    Spirit.apply(this, [params.x, params.y]);
+}
+```
+
+这种继承方式叫做混合方式，通过apply实现对象冒充，即构造函数使用this给方式或属性赋值，又用原型链继承父类方法，这样每个子类都拥有自己的posX和posY，可以访问到父类中的方法，也拥有自己的方法。

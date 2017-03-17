@@ -1,0 +1,71 @@
+---
+layout:     post
+title:      "求一个数组中最小k个数"
+subtitle:   "学习笔记"
+date:       2016-03-09
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 算法
+---
+
+
+* 方法1：
+
+基于数组中第k个数调整，使k左边的数比k小，k右边的数比k大。基于这个思想可以采用快速排序中的核心算法Partition函数
+
+Partition函数思想，在待划分数组Arr中随机选一个支点pivot，先把Arr[pivot]和最后一个数Arr[end]交换，pivot到end中的数和Arr[end]比较，则将这个数放在pivot之前的位置。
+
+时间复杂度`O(n)`，缺点是修改了原数组。
+
+```js
+int Partition(int data[],int length,int start,int end){
+    int pivot=RandomInRange(start,end);
+    Swap(&data[pivot],&data[end]);
+    int p=start-1;
+    for (pivot= start; pivot < end; ++pivot)
+    {
+        if (data[pivot]<data[end])
+        {
+            ++p;
+            if (p!=pivot)
+            {
+                Swap(&data[pivot],&data[p]);
+            }
+        }
+    }
+    ++p;
+    Swap(&data[p],&data[end]);
+    return p;
+}
+
+void Getk(int *Arr,int *result,int k){
+    int start=0;
+    int end=Arr.length-1;
+    int pivot=Partition(Arr,Arr.length,start,end);
+    while(pivot!=k-1){
+        if (pivot>k-1)
+        {
+            end=pivot-1;
+            pivot=Partition(Arr,Arr.length,start,end);
+        }else{
+            start=pivot+1;
+            pivot=Partition(Arr,Arr.length,start,end);
+        }
+    }
+    for (int i = 0; i < k; ++i)
+    {
+        result[i]=Arr[i];
+    }
+    return result;
+}
+```
+
+* 方法2：
+
+建立一个长度为k的容器，用来保存最小k个数。
+
+读取原数组Arr，若Arr[i]<容器中最大值，替换该最大值
+
+可以选用最大堆或者红黑树作容器，删除插入时间为`O(nlogk)`

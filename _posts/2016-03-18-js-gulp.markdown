@@ -1,0 +1,32 @@
+---
+layout:     post
+title:      "Gulp用法"
+subtitle:   "学习笔记"
+date:       2016-03-18
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 前端开发
+---
+
+Gulp是一种基于流的前端自动化构建工具，Gulp可以帮助我们完成很多琐碎又不得不做的事情，比如：图片压缩，编译Sass，合并代码，压缩代码，丑化代码，监控文件的修改等工作
+
+使用Gulp很简单，首先创建gulpfile.js：
+
+```js
+var gulp = require('gulp'),
+    uglify = require('gulp-uglify');      //引入丑化代码插件
+gulp.task('default', function() {         //配置任务名称为默认任务
+    gulp.src('big.js')                    //指定要处理的文件
+        .pipe(uglify({                    //放入工作流中
+            mangle: true,                 //类型：Boolean 默认：true 是否修改变量名
+            compress: true                //类型：Boolean 默认：true 是否完全压缩
+        }))
+        .pipe(gulp.dest('dist/'));        //丑化后导入目标文件夹
+});
+```
+
+只需要简单的几个API就可以实现自动化构建了
+
+最后在终端运行Gulp，完成构建任务

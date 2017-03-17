@@ -1,0 +1,55 @@
+---
+layout:     post
+title:      ""
+subtitle:   "Ajax跨域"
+date:       2016-03-24
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 前端开发
+---
+
+同源策略是Web中对脚本执行的安全限制，脚本只能读取和所属文档来源相同的窗口和文档，同源策略防止恶意脚本窃取其它文档中信息。
+
+什么是非同源的，比如在http：//wonggigi.com/stock中有一个Ajax请求：
+
+http:// www.wonggigi.com/stock，  请求失败，主机不同
+
+http:// wonggigi.com/page,       请求成功，同源
+
+https:// wonggigi.com/stock,    请求失败，传输协议不同
+
+http:// wongigi.com:3000/stock  ，请求失败，主机端口号不同
+
+同源要求协议，主机，端口号必须相同
+
+XMLHttpRequest无法实现跨域请求，但是在HTML5中新的XMLHttpRequest支持了CORS（Cross-Origin Resource Sharing）跨域资源共享，同时也要在服务器段进行允许跨域请求。
+
+除此之外，也可以`<script>`标签进行Ajax传输实现跨域，因为src属性不受同源策略的限制，这种Ajax方式叫做JSONP。
+
+JSONP(JSON with Padding)之所以叫JSONP，因为它返回的不单单是个JSON，它返回一个函数作为填充Padding，使用JSONP的简单例子
+
+需要跨域访问的数据：
+```js
+//json.js
+handlerResponese({"name":"wzz","age":20}])
+本地文档：
+```
+
+```js
+<html>
+<head>
+<script type="text/javascript">
+    var handlerResponse = function(data){
+        alert(data.name);
+    };
+</script>
+<script type="text/javascript" src="http://www.wonggigi.com/jsonp.js"></script>
+</head>
+<body>
+</body>
+</html>
+```
+
+这样远程传来的jsonp.js包裹着需要传递的json，调用在本地的handlerResponse函数来执行，实现了跨域。

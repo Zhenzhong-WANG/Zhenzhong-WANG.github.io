@@ -1,0 +1,92 @@
+---
+layout:     post
+title:      "JavaScript异步和事件"
+subtitle:   "学习笔记"
+date:       2016-04-20
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 前端开发
+    - JavaScript
+---
+
+JavaScript的执行是单线程的，也就是说JavaScript在某个时刻里只能做一件事情，只有做完一件事情之后才会做下一件事情，在浏览器端还是服务器端这种方式都会阻塞后面任务的进行，比如当ajax请求时，如果前端收不到后端的数据就会导致后续任务无法执行，使得浏览器无响应。所以，单线程的JavaScript采用了异步事件驱动的模型解决这种问题。
+
+### （一）同步和异步
+
+```js
+var i = 0;
+for (i; i < 10; i++) {}
+alert(i) //10
+```
+
+同步方式中，JavaScript按序执行，当for执行完，才会执行alert，如果这是个会执行很久的循环，它就会阻塞后续任务进行。
+
+```js
+var i = 0;
+setTimeout(function() {
+  for (i; i < 10; i++) {}
+}, 0)
+alert(i) //0
+```
+
+使用setTimeout后，将同步方式变为异步方式，for循环会被放入一个事件队列中，在后续任务alert进行完成之后，JavaScript会在事件队列中找到下一个需要执行的任务来执行。
+
+### （二）异步事件和回调函数
+
+上个例子中，setTimeout中的匿名函数就一个回调函数，当一个异步事件被触发时，JavaScript就会在事件队列中找到这个函数回调来执行。浏览器环境中，比如Ajax、window.onload、click、setTimeout、setInterval等很多事件都是异步事件，如ajax：
+
+```js
+var xmlhttprequest = new XMLHttpRequest();
+xmlhttprequest.open("POST", addr, true);
+xmlhttprequest.setRequestHeader("Content-Type", "application/json");
+xmlhttprequest.onreadystatechange = response;
+xmlhttprequest.send();
+
+function response() {
+  if (xmlhttprequest.readyState == 4) {
+      if (xmlhttprequest.status == 200 || xmlhttprequest == 0) {
+          //处理数据
+      }
+   }
+}
+```
+
+当创建一个ajax请求时，response会被放入事件队列，JavaScript继续执行后续任务。当ajax状态码改变时，一部世界就会被触发，从事件队列中取出回调函数response来处理数据。这样就不会阻塞后续任务进行。
+
+### （三）异步编程---管理回调
+
+当JavaScript中包含复杂嵌套的回调时，比如一个ajax请求成功后，再请求下一个ajax请求，然后再请求下一个ajax。这样以来，代码会变得结构复杂。
+
+```js
+xmlhttprequest.onreadystatechange = response;
+function response() {
+    if (xmlhttprequest.readyState == 4) {
+        if (xmlhttprequest.status == 200 || xmlhttprequest == 0) {
+            xmlhttprequest.onreadystatechange = response1;
+            xmlhttprequest.send();
+            function response1() {
+                if (xmlhttprequest.readyState == 4) {
+                    if (xmlhttprequest.status == 200 || xmlhttprequest == 0) {
+                        xmlhttprequest.onreadystatechange = response2;
+                        xmlhttprequest.send();
+                        function response2() {
+                            if (xmlhttprequest.readyState == 4) {
+                                if (xmlhttprequest.status == 200 || xmlhttprequest == 0) {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+仅仅三层这样的回调就使得代码变得非常难看(回调地狱)，在ECMAScript6中已经实现了Promise来管理回调。
+
+### （四）异步编程---自定义事件
+
+在浏览器中鼠标事件，键盘事件，window.onload等事件都是异步事件，这些事件的回调函数等待一个“信号”，比如点击，传回ajax数据来触发他们的执行，通过Publish/Subscribe模式可以实现我们自己的异步事件。Publish/Subscribe非常适于事件驱动的JavaScript。
