@@ -16,7 +16,7 @@ tags:
 
 当调用alert(Object)、Object和一个字符串相加的时候、Object和字符串比较的时候会自动调用Object.toString()；
 
-####转换规则
+#### 转换规则
 
 * 如果 toString 方法存在并且返回原始类型，返回 toString 的结果。
 

@@ -1,161 +1,96 @@
 ---
 layout: page
 title: "About"
-description: "Hey, this is Hux."
+description: "在线简历"
 header-img: "img/about-bg.jpg"
 ---
+<style>
+#introduction{
+		text-align:center;
+		margin-top: 70px;
 
-<!-- Language Selector -->
-<select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select>
-
-<!-- Chinese Version -->
-<!-- <div class="zh post-container">
-
-    <!--copied from markdown -->
-    <blockquote><p>test1<br>
-    test12</p></blockquote>
-
-    <p>Hey，我是<strong>黄玄</strong>，程序员 &amp; 设计师，<a href="https://medium.com/ben-and-dion/team-web-3315aa447fb2#.359a9c6cl">Team Web</a>，前淘宝网 · <a href="http://alitrip.com">阿里旅行</a>前端团队资深实习生 · 花名鬼栈，前微影时代 · <a href="http://www.wepiao.com/?r=movie">微票儿</a>前端基础工程团队负责人。</p>
-
-    <p>一些作品和开源项目，👉 戳 <a href="https://zhuanlan.zhihu.com/p/21280918">演说.io</a>、<a href="/portfolio">Portfolio</a> 与 <a href="http://github.com/huxpro">Github</a>；除了在博客与 <a href="http://zhuanlan.zhihu.com/huxblog">知乎专栏 · 一生想做浪漫极客</a> 写点东西外，我也是 <a href="http://www.gfansub.com/">GDG 字幕组</a> 与 <a href="http://zhuanlan.zhihu.com/FrontendMagazine">前端外刊评论 · 知乎专栏</a> 的翻译维护成员。</p>
-
-    <p>音乐重度依赖患者，设计师强迫症患者，书买得比看得多患者，毒舌患者，科技产品发布会观看癖患者，间歇性感伤患者，习惯性熬夜患者。</p>
-    <h5>Talks</h5>
-
-    <ul>
-    <li><a href="//huangxuan.me/2016/11/20/sw-101-gdgdf/">Service Worker 101</a> · GDG DevFest 北京 2016</li>
-    <li><a href="//huangxuan.me/2016/10/20/pwa-qcon2016/">Progressive Web Apps 复兴序章</a> · QCon 上海 2016</li>
-    <li><a href="//huangxuan.me/2016/06/05/pwa-in-my-pov/">Progressive Web App 之我见</a> · 2016</li>
-    <li><a href="//huangxuan.me/2015/12/28/css-sucks-2015/">CSS Still Sucks 2015</a> · 2015</li>
-    <li><a href="//huangxuan.me/2015/07/09/js-module-7day/">JavaScript 模块化七日谈</a> · 2015</li>
-    </ul>
+	}
+</style>
+<div id="introduction">
+		<canvas id="canvas" height="1200px" width="600px"></canvas>
 </div>
-
-<!-- English Version -->
-<!-- <div class="en post-container">
-    <blockquote><p>Yet another Web Developer. <br>
-    Yet another Life-long Designer.</p></blockquote>
-
-    <p>Hi, I am <strong>Huang Xuan(黄玄)</strong>，you can call me <strong>Hux</strong>. I'm an engineer &amp; a designer who loves to build software such as <a href="http://yanshuo.io">Yanshuo.io (on Desktop)</a> and more (👉 <a href="/portfolio">Portfolio</a> and <a href="http://github.com/huxpro">Github</a>). I studied Digital Media Art and graduated from <a href="https://en.wikipedia.org/wiki/Communication_University_of_China">Communication University of China</a> in 2016.</p>
-
-    <p>As an engineer, I worked at Wepiao (<a href="https://www.crunchbase.com/organization/wepiao#/entity">see CrunchBase</a>) as the dev lead of Front-End Infrastructure Team, and used to intern at <a href="https://www.alitrip.com/">Alibaba Trip</a> for one year. As a designer, I was offered to be the UI/UX Designer Intern of Alibaba, Microsoft etc.</p>
-
-    <p>Moreover, I'm also an active member of GDG Beijing, a translator at <a href="http://www.gfansub.com/">GDG China Subtitle Team</a>, maintainer at <a href="http://zhuanlan.zhihu.com/FrontendMagazine">Frontend Magazine</a> and the owner of <a href="http://zhuanlan.zhihu.com/huxblog">Lifelong Romantic Geek</a>.</p>
-
-    <h5>Talks</h5>
-
-    <ul>
-    <li><a href="//huangxuan.me/2016/11/20/sw-101-gdgdf/" title="Service Worker 101 - working offline and instant loading">Service Worker 101</a> · GDG DevFest Beijing 2016</li>
-    <li><a href="//huangxuan.me/2016/10/20/pwa-qcon2016/" title="Progressive Web Apps - make web great again">Progressive Web Apps</a> · QCon Shanghai 2016</li>
-    <li><a href="//huangxuan.me/2016/06/05/pwa-in-my-pov/" title="Progressive Web App in my point of view">Progressive Web App in my POV</a> · 2016</li>
-    <li><a href="//huangxuan.me/2015/12/28/css-sucks-2015/" title="CSS Still Sucks 2015 - and how we work around it">CSS Still Sucks 2015</a> · 2015</li>
-    <li><a href="//huangxuan.me/2015/07/09/js-module-7day/">JavaScript Modularization Journey</a> · 2015</li>
-    </ul>
-</div> --> -->
-
-<!-- Handle Language Change -->
+<script src="./js/resumeTemplate.js"></script>
 <script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
-
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
-
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
-
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
-
-    // init
-    _render();
-</script>
 
 
 
-{% if site.duoshuo_username %}
-<!-- 多说评论框 start -->
-<div class="comment">
-    <!-- This id is used for indexing my loss comments forcedly -->
-    <div class="ds-thread"
-    {% if site.duoshuo_username == "huxblog" %}
-        data-thread-id="1187623191091085319"
-    {% else %}
-    <!-- U can just use this key generated to index comments at page about -->
-        data-thread-key="{{site.duoshuo_username}}/about"
-    {% endif %}
+	var json={
+		'Introduction':{
+			'Name':'狗鱼',
+			'School':"NorthEasten Unversity",
+			'Major':' Computer Science and Technology',
+			'Skills':[ 'Javascript','python,html/html5','css/css3','ES5/6','ReactJs','Webpack','mysql','linux'],
 
-    data-title="{{page.title}}"
-    data-url="{{site.url}}/about/"></div>
-</div>
-<!-- 多说评论框 end -->
+		},
+		'Projects':[
+		{
+			'Name':'WtinyChart.js  数据可视化图形库',
+			'Do':['项目地址：https://github.com/wonggigi/wtinyChart.js'
+			,'基于HTML5 Canvas的图形库'
+			,'支持Radar,Line,Bar,Bar Stack,Pie等多种图形','配置方便 可进行交互']
+		},{
+			'Name':'Stock Spider   实时股票推送爬虫',
+			'Do':['项目地址：http://stockspider.wonggigi.com'
+			,'基于HTTP长连接的服务器Comet推送技术'
+			,'NodeJs作中间层与Python多线程爬虫服务Socket通信，并建立消息队列'
+			,'首个版本使用RequireJs管理模块依赖'
+			,'新版本采用Promise进行回调管理，链式加载数据'
+			,'解决一次性加载股票数据时加载时间过长的问题'
+			,'localStroage本地存储 MySql服务器端存储'
+			,'并进行SQL语句优化，缩短查询时间']
+		},{
+			'Name':'开源简历模板',
+			'Do':['项目地址：https://github.com/wonggigi/ResumeTemplate.js'
+			,'基于HTML5 Canvas'
+			,'利用确定有限自动机(DFA)知识的一款程序员编辑器风格的简历'
+			,'使用方便 支持点击超链接 ']
+		},{
+			'Name':'坦克大战小游戏',
+			'Do':['项目地址：http://www.wonggigi.com:3000/my_project'
+			,'初学JavaScript做的小游戏'
+ 			,'熟悉JavaScript 原型 闭包 继承 函数式编程']
+		},{
+			'Name':'个人博客',
+			'Do':['项目地址：http://www.wonggigi.com'
+			,'采用Python Django框架搭建'
+			,'新版博客采用Webpack+ES6+React构建 掌握基本ES6 和React'
+			,'瀑布流式布局 博客支持自适应和响应式'
+			, '使用cookie和session跟踪记录用户状态'
+			,'利用Ajax实现注册时用户名 邮箱重复时的实时反馈']
+		},{
+			'Name':'wParticulates.js',
+			'Do':['项目地址：https://github.com/wonggigi/WggPartcles.js'
+			,'基于HTML5 Canvas的一款粒子系统插件'
+			, '用来在网页上创建颗粒效果']
+		}],
+		'Experience':[{
+			'Name':'东北大学三等奖学金',
+			'Do':['null']
+		},{
+			'Name':'东北大学优秀学生干部',
+			'Do':['null']
+		},{
+			'Name':'东北大学优秀团干部',
+			'Do':['null']
+		},{
+			'Name':'搜狐前端实习',
+			'Do':['']
+		},{
+			'Name':'GitHub:https://github.com/wonggigi/',
+			'Do':['null']
+		},{
+			'Name':'Blog:http://www.wonggigi.com/',
+			'Do':['null']
+		}]
+	}
+	var canvas=document.getElementById('canvas');
+	var ctx=canvas.getContext("2d");
+	Resume.render(ctx,json);
 
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    // dynamic User hacking by Hux
-    var _user = '{{site.duoshuo_username}}';
 
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
-{% endif %}
-
-
-{% if site.disqus_username %}
-<!-- disqus 评论框 start -->
-<div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
-
-    </div>
-</div>
-<!-- disqus 评论框 end -->
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus_username}}";
-    var disqus_identifier = "{{site.disqus_username}}/{{page.url}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-{% endif %}
+	</script>
