@@ -28,10 +28,14 @@ html元素用document.documentElement.offsetWidth/Height度量，默认大小为
 
 要设置html的font-size的值，也就是rem的基准值，可以用css的媒体查询或js动态设置如
 
-`document.getElementsByTagName('html')[0].style.fontSize = window.innerWidth / 10 + 'px';`
+```js
+document.getElementsByTagName('html')[0].style.fontSize = window.innerWidth / 10 + 'px';
+```
 
 如一个iphone6的设计稿基准值为750/10=75；那么对于设计稿上的一个单位可以如下计算他的rem：rem=px/基准值。
 
 最后动态设置viewport的缩放，如下计算：scale=1/dpr：
 
-`meta.setAttribute('content', 'initial-scale=' + 1/dpr + ', maximum-scale=' + 1/dpr + ', minimum-scale=' + 1/dpr + ', user-scalable=no');`
+```js
+meta.setAttribute('content', 'initial-scale=' + 1/dpr + ', maximum-scale=' + 1/dpr + ', minimum-scale=' + 1/dpr + ', user-scalable=no');
+```
