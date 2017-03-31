@@ -63,8 +63,11 @@ Chrome的运行结果
 ----------------------
 
 Tasks：   
-Microtasks ：   
-JSstack ：匿名函数                      
+
+Microtasks ：  
+
+JSstack ：匿名函数   
+
 Log	 ：                          
 
 ----------------------
@@ -72,8 +75,11 @@ Log	 ：
 将setTimeout进入task队列，开始执行promise,输出2
 
 Tasks：   setTimeoutCallback（1）
+
 Microtasks ：   
-JSstack ：匿名函数   Promise（2）                   
+
+JSstack ：匿名函数   Promise（2）  
+
 Log	 ：   2                       
 
 ----------------------
@@ -81,8 +87,11 @@ Log	 ：   2
 将promise的then进入microtask队列，输出5，之后匿名函数调用结束，返回
 
 Tasks：   setTimeoutCallback（1）
+
 Microtasks ：   promiseThen
-JSstack ：                      
+
+JSstack ：                
+
 Log	 ：   2   5                    
 
 ----------------------
@@ -90,8 +99,11 @@ Log	 ：   2   5
 JS执行栈为空，开始执行microtask，执行其中的promise（3）
 
 Tasks：   setTimeoutCallback（1）
+
 Microtasks ：   
-JSstack ：   promise（3）                  
+
+JSstack ：   promise（3）       
+
 Log	 ：   2   5    3                
 
 ----------------------
@@ -99,8 +111,11 @@ Log	 ：   2   5    3
 将promise（3）的回调函数放入microtask，promise（3）执行完毕
 
 Tasks：   setTimeoutCallback（1）
+
 Microtasks ：   promiseThen(4)
+
 JSstack ：                   
+
 Log	 ：   2   5   3                
 
 ----------------------
@@ -108,7 +123,9 @@ Log	 ：   2   5   3
 JS栈为空，开始执行microtask
 
 Tasks：  setTimeoutCallback（1）
+
 Microtasks ：   
+
 JSstack ：  promise(4)                 
 
 Log	 ：   2   5   3   4            
@@ -118,7 +135,9 @@ Log	 ：   2   5   3   4
 microtask为空了，继续执行tasks，输出1，执行完毕
 
 Tasks：   
+
 Microtasks ：   
+
 JSstack ：   setTimeoutCallback（1）             
 
 Log	 ：   2   5   3   4   1       
