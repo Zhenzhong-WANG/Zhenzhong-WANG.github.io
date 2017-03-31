@@ -9,9 +9,6 @@ catalog: true
 tags:
     - 前端开发
 ---
-https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly&utm_medium=email
-
-http://www.jianshu.com/p/1ee6c21f6efa
 
 ### Microtask 和 Macrotask
 
@@ -127,3 +124,5 @@ JSstack ：   setTimeoutCallback（1）
 Log	 ：   2   5   3   4   1       
 
 ----------------------
+
+参考自:https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly&utm_medium=email
