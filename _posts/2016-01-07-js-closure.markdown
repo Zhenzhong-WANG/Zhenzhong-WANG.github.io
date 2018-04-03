@@ -7,7 +7,7 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - JavaScript
+    - 前端开发
 ---
 
 ## 1.作用域

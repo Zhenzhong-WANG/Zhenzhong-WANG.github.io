@@ -7,7 +7,7 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - JavaScript
+    - 基础算法
 ---
 
 ### Object.toString()；

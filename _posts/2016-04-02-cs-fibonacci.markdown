@@ -7,7 +7,7 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - 算法
+    - 基础算法
 ---
 
 Fibonacci数列递归公式：

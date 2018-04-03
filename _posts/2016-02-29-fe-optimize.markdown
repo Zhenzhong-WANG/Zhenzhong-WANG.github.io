@@ -8,7 +8,6 @@ header-img: "img/home-bg.jpg"
 catalog: true
 tags:
     - 前端开发
-    - 前端优化
 ---
 
 

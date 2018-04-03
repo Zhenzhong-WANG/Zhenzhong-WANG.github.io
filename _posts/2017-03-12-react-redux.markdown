@@ -7,8 +7,6 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - React
-    - JavaScript
     - 前端开发
 ---
 

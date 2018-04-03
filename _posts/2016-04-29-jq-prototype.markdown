@@ -7,8 +7,6 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - jQuery
-    - JavaScript
     - 前端开发
 ---
 

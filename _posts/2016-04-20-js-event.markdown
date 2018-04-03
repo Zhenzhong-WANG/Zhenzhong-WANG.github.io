@@ -8,7 +8,6 @@ header-img: "img/home-bg.jpg"
 catalog: true
 tags:
     - 前端开发
-    - JavaScript
 ---
 
 JavaScript的执行是单线程的，也就是说JavaScript在某个时刻里只能做一件事情，只有做完一件事情之后才会做下一件事情，在浏览器端还是服务器端这种方式都会阻塞后面任务的进行，比如当ajax请求时，如果前端收不到后端的数据就会导致后续任务无法执行，使得浏览器无响应。所以，单线程的JavaScript采用了异步事件驱动的模型解决这种问题。

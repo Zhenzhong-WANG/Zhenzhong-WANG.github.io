@@ -8,8 +8,6 @@ header-img: "img/home-bg.jpg"
 catalog: true
 tags:
     - 前端开发
-    - JavaScript
-    - HTTP
 ---
 
 Ajax是Asynchronous JavaScript and XML的简写，使用脚本技术来发送请求，在无刷新的情况下实现客户端与服务器通信，以原生JavaScript实现Ajax为例：

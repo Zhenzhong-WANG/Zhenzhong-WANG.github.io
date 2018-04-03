@@ -7,7 +7,6 @@ author:     "wzz"
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:
-    - HTTP/HTTPS
     - 前端开发
 ---
 

@@ -8,7 +8,6 @@ header-img: "img/home-bg.jpg"
 catalog: true
 tags:
     - 前端开发
-    - JavaScript
 ---
 
 模块是一个提供接口，隐藏其内部状态和实现的函数或对象，通过模块我们可以减少全局变量的使用。模块化可以实现代码的重用。 在JavaScript中，有几种实现模块的方法，包括  
