@@ -1,0 +1,14 @@
+---
+layout:     post
+title:      "分割线"
+subtitle:   ""
+date:       2018-04-04
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 测试
+---
+
+
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/ring.png)
