@@ -11,4 +11,4 @@ tags:
 ---
 
 
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/ring.png)
+![](/img/tag-bg.jpg)
