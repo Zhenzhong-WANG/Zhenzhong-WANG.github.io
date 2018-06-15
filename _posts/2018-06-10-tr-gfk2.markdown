@@ -1,0 +1,19 @@
+---
+layout:     post
+title:      "Geodesic Flow Kernel（二）"
+subtitle:   "迁移学习"
+date:       2018-06-10
+author:     "wzz"
+header-img: "img/home-bg.jpg"
+catalog: true
+tags:
+    - 迁移学习
+---
+
+# Geodesic Flow Kernel（二）
+
+占坑待写完
+ 
+
+
+##### 论文名：Geodesic Flow Kernel for Unsupervised Domain Adaptationv
