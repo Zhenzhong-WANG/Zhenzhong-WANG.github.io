@@ -38,7 +38,7 @@ $ P_S $和$P_T$分别为源域和目标域经过PCA提取到的子空间，看�
 
 $$
 z^\infty={
-\left( \begin{arvray}{c}
+\left( \begin{array}{c}
 \Phi(0)\\
 \vdots\\
 \Phi(t)\\
