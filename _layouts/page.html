@@ -14,7 +14,8 @@ layout: default
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                    <h1>不标准的正交鸡</h1>
+                    <!-- <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1> -->
                     <!--<hr class="small">-->
                     <span class="subheading">{{ page.description }}</span>
                 </div>
@@ -60,8 +61,10 @@ layout: default
                 <hr>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
+                        <li><a href="https://wanglida.github.io/testpage/">旋墨</a></li>
                     {% for friend in site.friends %}
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>
+                        
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -113,7 +116,9 @@ layout: default
                         {% endif %}
                         {% if site.sidebar-about-description %}
                             <p>{{site.sidebar-about-description}}</p>
+                            
                         {% endif %}
+                        <p>Northeastern University,Xiamen University</p>
                         <!-- SNS Link -->
                         <ul class="list-inline">
                             {% if site.RSS %}
@@ -166,7 +171,7 @@ layout: default
                                 </a>
                             </li>
                             {% endif %}
-                            {% if site.github_username %}
+                            <!-- {% if site.github_username %}
                             <li>
                                 <a target="_blank" href="https://github.com/{{ site.github_username }}">
                                     <span class="fa-stack fa-lg">
@@ -175,7 +180,15 @@ layout: default
                                     </span>
                                 </a>
                             </li>
-                            {% endif %}
+                            {% endif %} -->
+                            <li>
+                                <a target="_blank" href="https://github.com/wonggigi">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                             {% if site.linkedin_username %}
                             <li>
                                 <a target="_blank" href="https://www.linkedin.com/in/{{ site.linkedin_username }}">
@@ -197,6 +210,7 @@ layout: default
                     {% for friend in site.friends %}
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                     {% endfor %}
+                    <li><a href="https://wanglida.github.io/testpage/">旋墨</a></li>
                 </ul>
                 {% endif %}
     		</div>
