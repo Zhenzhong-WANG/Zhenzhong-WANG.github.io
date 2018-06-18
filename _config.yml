@@ -87,7 +87,7 @@ service-worker: true
 
 
 
-Friends
+# Friends
 friends: [
     {
         title: "旋墨",
