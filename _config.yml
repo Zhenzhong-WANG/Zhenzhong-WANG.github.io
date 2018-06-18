@@ -3,7 +3,7 @@ title:  不标准的正交鸡
 SEOTitle: Blog
 header-img: img/home-bg.jpg
 email: 90886843@qq.com
-description: ""
+description: "多目标优化 迁移学习 前后端开发"
 keyword: ""
 url: ""              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
@@ -70,7 +70,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Northeastern University,Xiamen University"
+sidebar-about-description: "Xiamen University && Northeastern University"
 # sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 

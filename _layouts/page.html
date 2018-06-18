@@ -61,7 +61,7 @@ layout: default
                 <hr>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
-                        <li><a href="https://wanglida.github.io/testpage/">旋墨</a></li>
+        
                     {% for friend in site.friends %}
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                         
@@ -118,7 +118,6 @@ layout: default
                             <p>{{site.sidebar-about-description}}</p>
                             
                         {% endif %}
-                        <p>Northeastern University,Xiamen University</p>
                         <!-- SNS Link -->
                         <ul class="list-inline">
                             {% if site.RSS %}
@@ -210,7 +209,7 @@ layout: default
                     {% for friend in site.friends %}
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                     {% endfor %}
-                    <li><a href="https://wanglida.github.io/testpage/">旋墨</a></li>
+               
                 </ul>
                 {% endif %}
     		</div>
