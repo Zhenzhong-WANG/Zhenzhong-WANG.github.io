@@ -1,5 +1,5 @@
 # Site settings
-title:  Blog
+title:  不标准的正交鸡
 SEOTitle: Blog
 header-img: img/home-bg.jpg
 email: 90886843@qq.com
@@ -70,7 +70,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "这个人很懒,什么都没留下"
+sidebar-about-description: "Northeastern University,Xiamen University"
 # sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
@@ -87,10 +87,10 @@ service-worker: true
 
 
 
-# Friends
-# friends: [
-#     {
-#         title: "wzz",
-#         href: "http://wonggigi.com"
-#     }
-# ]
+Friends
+friends: [
+    {
+        title: "旋墨",
+        href: "https://wanglida.github.io/testpage/"
+    }
+]
