@@ -70,7 +70,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Xiamen University&nbsp;&nbsp;&nbsp;Northeastern University"
+sidebar-about-description: "XMU & NEU"
 # sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
