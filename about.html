@@ -1,0 +1,131 @@
+---
+layout: page
+title: "About"
+description: "在线简历"
+header-img: "img/about-bg.jpg"
+---
+<style>
+#introduction{
+		text-align:center;
+		margin-top: 70px;
+	}
+	#canvas{
+		border:2px solid white;
+
+            box-shadow:  0px 0px 20px black;
+</style>
+<div id="introduction">
+		<canvas id="canvas" height="1750px" width="900px"></canvas>
+</div>
+<script src="../js/typewriter_resumev2.js"></script>
+<script type="text/javascript">
+
+var json={
+		'Title':{
+			'Name':'Zhenzhong WANG',
+			'Region':"Liaoning, China",
+			'Contact':'zhenzhongwang0616@gmail.com',
+		},
+	  'Sections':[{
+	  	'Name':'Biography',
+	  	'Lines':['Zhenzhong WANG is currently a postgradute student in the School of Informatic, Xiamen University, Xiamen, China, under the supervision of Prof. Min JIANG. Before that, he obtained his B.Eng. degree from Northeastern Unversity, Shenyang, China, majoring in Computer Science and Technology in 2017. Now his research interests mainly lie in the intersection between Machine Learning and Evolutionary Algorithm.']
+	  },
+	  {
+	  	'Name':'Experience',
+	  	'List':[
+	  		{
+	  			'Lines':['City University of Hong Kong (Shenzhen Research Institute)','Research Intern'],
+	  			'Time':'2019.07-2019.09',
+	  			'Location':'Shenzhen'
+	  		},
+	  		{
+	  			'Lines':['Qunar','Software Development Engineer'],
+	  			'Time':'2017.06-2017.09',
+	  			'Location':'Beijing'
+	  		},
+	  		{
+	  			'Lines':['SOHU','Software Development Engineer (Intern)'],
+	  			'Time':'2016.03-2016.09',
+	  			'Location':'Beijing'
+
+	  		}
+	  		
+	  	]
+	    },{
+	  	'Name':'Award & Competitions',
+	  	'List':[
+	  		{
+	  			'Lines':['Kaggle Data Competition-Great Energy Predictor III:', 'Bronze Prize'],
+	  			'Time':'2019.12',
+	  		},
+	  		{
+	  			'Lines':['CCF Big Data & Computational Intelligence Contest:','Rank Top 5% (95/2265)'],
+	  			'Time':'2019.10',
+	  		},
+	  		{
+	  			
+	  			'Lines':['Northeastern University third-class scholarship'],
+	  			'Time':'2014, 2015, 2016',
+	  		},
+	  		{
+	  			'Lines':['Northeastern University outstanding student cadres'],
+	  			'Time':'2015, 2016',
+	  		},
+	  			  		
+	  	]
+	    },{
+	  	'Name':'Publications',
+	  	'List':[
+	  		{	
+	  			'Lines':['Evolutionary Dynamic Multi-objective Optimization Via Regression Transfer Learning, $text{bf}{Zhenzhong Wang}, Min Jiang*, Xing Gao, Liang Feng and Kay Chen Tan, $text{ita}{IEEE Symposium Series on Computational Intelligence (IEEE SSCI)}, 2019'],
+	  		},
+	  		{	
+	  			'Lines':['Knee Points based Transfer Dynamic Multi-objective Optimization Evolutionary Algorithm, $text{bf}{Zhenzhong Wang}, Zhongrui Mei, Min Jiang* and Gary G.Yen, $text{ita}{IEEE Congress on Evolutionary Computation (IEEE CEC)}, 2020'],
+	  		},
+	  		{	
+	  			'Lines':['Improving Deep Learning based Optical Character Recognition via Neural Architecture Search, Zhenyao Zhao, Min Jiang*, Shihui Guo, $text{bf}{Zhenzhong Wang}, Fei Chao and Kay Chen Tan, $text{ita}{IEEE Congress on Evolutionary Computation (IEEE CEC)}, 2020'],
+	  		},
+	  		{
+	  			'Lines':['Individual-based Transfer Learning for Dynamic Multi-objective Optimization, Min JIANG, $text{bf}{Zhenzhong WANG*}, Shihui GUO, Xing GAO*, and Kay Chen TAN, Under review by $text{ita}{IEEE Transactions on Cybernetics}'],
+	  		},
+	  		{
+	  			'Lines':['A Fast Dynamic Evolutionary Multi-objective Algorithm via Manifold Transfer, Min JIANG, $text{bf}{Zhenzhong WANG}, Liming QIU*, Shihui GUO, Xing GAO, and Kay Chen TAN*, Under review by $text{ita}{IEEE Transactions on Cybernetics}'],
+	  		},
+	  		{
+	  			'Lines':['Knee Point Based Imbalanced Transfer Learning for Dynamic Multi-objective Optimization, Min JIANG, $text{bf}{Zhenzhong WANG}, Haokai HONG, and Gary Gune YEN*, Under review by $text{ita}{IEEE Transactions on Evolutionary Computation}'],
+	  		},
+	  	],
+	  },{
+	  	'Name':'Academic Services',
+	  	'List':[
+	  		{	
+	  			'Lines':['Reviewer for IEEE Transactions on Neural Networks and Learning Systems (TNNLS), 2020'],
+	  		},
+	  		{	
+	  			'Lines':['Reviewer for International Joint Conference on Neural Networks (IJCNN), 2020'],
+	  		},
+	  		{	
+	  			'Lines':['Student volunteer for IEEE Symposium Series on Computational Intelligence (IEEE SSCI), 2019'],
+	  		},
+	  		{	
+	  			'Lines':['Student volunteer for International Conference on Advanced Computational Intelligence','(ICACI), 2018'],
+	  		},
+	  		
+	  		
+	  		
+	  	],
+	  }
+	  ]
+	}
+
+
+	
+	console.log(json)
+ 	var canvas=document.getElementById('canvas');
+	var ctx=canvas.getContext("2d");
+	var CVinstance=new CV(ctx,json)
+	CVinstance.render();
+
+
+
+	</script>
